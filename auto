@@ -1,7 +1,25 @@
+if game.PlaceId == 2753915549 then
+    World1 = true
+elseif game.PlaceId == 4442272183 then
+    World2 = true
+elseif game.PlaceId == 7449423635 then
+    World3 = true
+else
+    game:GetService("Players").LocalPlayer:Kick("Do not Support, LOL 🤣😭")
+end
+--Main HUB
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BMB HUB", HidePremium = false, IntroText = "BMB lib", SaveConfig = true, ConfigFolder = "OrionTest"})
+--LocalPlayer
 LocalPlayer = game:GetService("Players").LocalPlayer
 Char = LocalPlayer.Character
 
+--Value
 _G.AutoFarm = true
+_G.FastAttack = true
+
+--- Function auto farm
+while _G.AutoFarm == true do
 local GetQuests = function(N,NB)
     local args = {
         [1] = "StartQuest",
@@ -85,8 +103,8 @@ spawn(function()
     end
 end)
 
-
-_G.FastAttack = true
+--Function FastAttack
+while _G.FastAttack == true do
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
 Camera:Stop()
@@ -94,8 +112,37 @@ coroutine.wrap(function()
     game:GetService("RunService").Stepped:Connect(function()
         if getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack then
             getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack = 0.15
-            getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 50
+            getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 200
             getupvalues(CombatFramework)[2]['activeController']:attack()
         end
     end)
 end)()
+
+--notification
+OrionLib:MakeNotification({
+	Name = "Byfron",
+	Content = "U got banned by me",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+--Tab
+local FarmTab = Window:MakeTab({
+	Name = "Auto Farm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = FarmTab:AddSection({
+	Name = "Level"
+})
+
+FarmTab:AddLabel("Updating script auto farm and more")
+
+FarmTab:AddToggle({
+	Name = "Auto Farm Level",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoFarm   == Value
+        _G.FastAttack == Value
+	end    
+})
