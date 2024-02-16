@@ -1,4 +1,3 @@
-
 LocalPlayer = game:GetService("Players").LocalPlayer
 Char = LocalPlayer.Character
 
@@ -70,9 +69,18 @@ spawn(function()
                             if _v.Name == tostring(ChackQ()["Mon"]) and _v:FindFirstChild("Humanoid") and _v:FindFirstChild("HumanoidRootPart") then
                                 if _v.Humanoid.Health > 0 then
                                     repeat wait()
-                                        TW(_v:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,5))
-                                        game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+                                        local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
+                                        Camera:Stop()
+                                        coroutine.wrap(function()
+                                            game:GetService("RunService").Stepped:Connect(function()
+                                                if getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack then
+                                                    getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack = 0.15
+                                                    getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 50
+                                                    getupvalues(CombatFramework)[2]['activeController']:attack()
+                                                end
+                                            end)
+                                        end)()
                                     until not _G.AutoFarm or _G.AutoFarm == false or not _v.Parent or _v.Humanoid.Health <= 0 or not UIQ.Visible or UIQ.Visible == false
                                 end
                             end
