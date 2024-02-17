@@ -13,14 +13,11 @@ end
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
 
 local GUI = Mercury:Create{
-    Name = "BMB Hub",
+    Name = "Mercury",
     Size = UDim2.fromOffset(600, 400),
     Theme = Mercury.Themes.Dark,
     Link = "https://github.com/deeeity/mercury-lib"
 }
-
----Local
-local AutoFarm = true
 
 LocalPlayer = game:GetService("Players").LocalPlayer
 Char = LocalPlayer.Character
@@ -109,7 +106,8 @@ spawn(function()
     end
 end)
 
-_G.FastAttack
+
+_G.FastAttack = true
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
 Camera:Stop()
@@ -122,23 +120,3 @@ coroutine.wrap(function()
         end
     end)
 end)()
-
---Tab
-local FarmTab = GUI:Tab{
-	Name = "FarmTab",
-	Icon = "rbxassetid://8569322835"
-}
-
-FarmTab:Toggle{
-	Name = "One Click (Kaiun)",
-	StartingState = false,
-	Description = nil,
-	Callback = function(state)
-    AutoFarm = state
-    while AutoFarm do
-        _G.FastAttack
-        wait()
-        _G.AutoFarm 
-    end
-end
-}
