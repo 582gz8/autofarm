@@ -1,10 +1,26 @@
-local args = {
-    [1] = "SetTeam",
-    [2] = "Pirates"
+--PlaceId
+if game.PlaceId == 2753915549 then
+    World1 = true
+elseif game.PlaceId == 4442272183 then
+    World2 = true
+elseif game.PlaceId == 7449423635 then
+    World3 = true
+else
+    game:GetService("Players").LocalPlayer:Kick("Do not Support, LOL 🤣😭")
+end
+
+--UI lib
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local GUI = Mercury:Create{
+    Name = "BMB Hub",
+    Size = UDim2.fromOffset(600, 400),
+    Theme = Mercury.Themes.Dark,
+    Link = "https://github.com/deeeity/mercury-lib"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
-wait(4)
+---Local
+local AutoFarm = true
 
 LocalPlayer = game:GetService("Players").LocalPlayer
 Char = LocalPlayer.Character
@@ -93,8 +109,7 @@ spawn(function()
     end
 end)
 
-
-_G.FastAttack = true
+_G.FastAttack
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
 Camera:Stop()
@@ -107,3 +122,24 @@ coroutine.wrap(function()
         end
     end)
 end)()
+
+--Tab
+local FarmTab = GUI:Tab{
+	Name = "FarmTab",
+	Icon = "rbxassetid://8569322835"
+}
+
+FarmTab:Toggle{
+	Name = "One Click (Kaiun)",
+	StartingState = false,
+	Description = nil,
+	Callback = function(state)
+    AutoFarm = state
+    while AutoFarm do
+    _G.AutoFarm
+    wait()
+    _G.FastAttack 
+    end
+end
+}
+
