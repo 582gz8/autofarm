@@ -136,10 +136,9 @@ FarmTab:Toggle{
 	Callback = function(state)
     AutoFarm = state
     while AutoFarm do
-    _G.AutoFarm
-    wait()
-    _G.FastAttack 
+        _G.FastAttack
+        wait()
+        _G.AutoFarm 
     end
 end
 }
-
