@@ -96,7 +96,8 @@ function AutoFarm()
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
         end
     end
-    
+end
+
     spawn(function()
         while wait() do
             pcall(function()
